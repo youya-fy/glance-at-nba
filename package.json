@@ -1,0 +1,30 @@
+{
+  "name": "glance-at-nba",
+  "version": "0.1.0",
+  "engines": {
+    "sketch": ">=3.0"
+  },
+  "skpm": {
+    "name": "glance-at-nba",
+    "manifest": "src/manifest.json",
+    "main": "glance-at-nba.sketchplugin"
+  },
+  "scripts": {
+    "build": "skpm-build",
+    "watch": "skpm-build --watch",
+    "render": "skpm-build --watch --run",
+    "render:once": "skpm-build --run",
+    "postinstall": "npm run build && skpm-link"
+  },
+  "devDependencies": {
+    "@skpm/builder": "^0.5.10"
+  },
+  "dependencies": {
+    "moment": "^2.22.2",
+    "prop-types": "^15.5.8",
+    "react": "^16.3.2",
+    "react-sketchapp": "^2.0.0",
+    "react-test-renderer": "^16.3.2"
+  },
+  "author": "duan <hello@duanjun.net>"
+}

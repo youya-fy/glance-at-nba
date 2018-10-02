@@ -1,0 +1,15 @@
+# build artifacts
+plugin.sketchplugin/Contents/Sketch
+plugin.sketchplugin/Contents/Resources/_webpack_resources
+glance-at-nba.sketchplugin
+
+# npm
+node_modules
+.npm
+npm-debug.log
+
+# mac
+.DS_Store
+
+# WebStorm
+.idea
