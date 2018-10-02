@@ -135,7 +135,8 @@ var DATE_FOR_FETCH = "";
 function getDateForFetch() {
     // 获取日期
     return new Promise((resolve, reject) => {
-        fetch("https://data.nba.net/10s/prod/v1/today.json")
+        fetch("https://data.nba.net/10s/prod/v1/today.json") 
+        // 由于系统限制，只支持安全链接的api
             .then(res => res.json())
             .then(data => {
                 let date = data.links.currentDate;
@@ -166,6 +167,7 @@ function getTeamFullName() {
     });
 }
 function getGames(teamMapping) {
+    // 获取比赛数据
     return new Promise((resolve, reject) => {
         fetch(
             `https://data.nba.net/10s/prod/v1/${DATE_FOR_FETCH}/scoreboard.json`
