@@ -20,7 +20,7 @@ export default () => {
                 renderScoreBoard(games, container);
                 container.adjustToFit();
             })
-            .catch(err => show("can't get NBA data now"));
+            .catch(err => show("❌ can't get NBA data now"));
     } else {
         processData()
             .then(games => {
@@ -39,18 +39,26 @@ function renderScoreBoard(games, target) {
     if (!target) return;
     render(<ScoreBoard games={games} />, target);
 }
-const ScoreBoard = props => (
-    <View
-        name="NBA scoreboard"
-        style={{
-            backgroundColor: "#666"
-        }}
-    >
-        {props.games.map(game => (
-            <Game game={game} />
-        ))}
-    </View>
-);
+const ScoreBoard = props => {
+    if (props.games.length == 0) return <NoGame />;
+    return (
+        <View
+            name="NBA scoreboard"
+            style={{
+                backgroundColor: "#666"
+            }}
+        >
+            {props.games.map(game => (
+                <Game game={game} />
+            ))}
+        </View>
+    );
+};
+const NoGame = () => {
+    <View name="NBA scoreboard">
+        <Text>There is no game today ☹️</Text>
+    </View>;
+};
 const Game = props => {
     let hTeam = props.game.hTeam;
     let vTeam = props.game.vTeam;
@@ -109,8 +117,7 @@ const Game = props => {
                     flexGrow: 0,
                     flexBasis: 80,
                     height: 80,
-                    backgroundColor:
-                        status == "pending" ? "#333" : "#555",
+                    backgroundColor: status == "pending" ? "#333" : "#555",
                     justifyContent: "center",
                     alignItems: "center"
                 }}
@@ -135,8 +142,8 @@ var DATE_FOR_FETCH = "";
 function getDateForFetch() {
     // 获取日期
     return new Promise((resolve, reject) => {
-        fetch("https://data.nba.net/10s/prod/v1/today.json") 
-        // 由于系统限制，只支持安全链接的api
+        fetch("https://data.nba.net/10s/prod/v1/today.json")
+            // 由于系统限制，只支持安全链接的api
             .then(res => res.json())
             .then(data => {
                 let date = data.links.currentDate;
