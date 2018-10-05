@@ -9,7 +9,14 @@ export default () => {
     let container;
     let selection = sketch.getSelectedDocument().selectedLayers;
     if (!selection.isEmpty) {
-        let frame = selection.layers[0].frame;
+        let frame
+        if (selection.layers[0].type == "Artboard") {
+            frame = selection.layers[0].frame;
+        } else {
+            frame = selection.layers[0].frame.changeBasis({
+                from: selection.layers[0]
+            });
+        }
         processData()
             .then(games => {
                 container = new Group({
@@ -19,6 +26,7 @@ export default () => {
                 });
                 renderScoreBoard(games, container);
                 container.adjustToFit();
+                sketch.getSelectedDocument().centerOnLayer(container);
             })
             .catch(err => show("❌ can't get NBA data now"));
     } else {
@@ -30,6 +38,7 @@ export default () => {
                 });
                 renderScoreBoard(games, container);
                 container.adjustToFit();
+                sketch.getSelectedDocument().centerOnLayer(container);
             })
             .catch(err => show("❌ can't get NBA data"));
     }
